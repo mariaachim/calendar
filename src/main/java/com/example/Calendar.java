@@ -11,11 +11,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.sql.*;
 
-/**
- * Hello world!
- *
- */
-
 @Command(name = "calendar", mixinStandardHelpOptions = true, version = "calendar 1.0", description = "CLI events calendar")
 
 public class Calendar implements Runnable {
