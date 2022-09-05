@@ -4,22 +4,19 @@ import java.sql.*;
 
 public class DBConnection {
 
-    private Connection connection;
-    private static DBConnection dBConnection;
+    static String db_url = "jdbc:mariadb://localhost";
+    static String username = System.getenv("DATABASE_USER");
+    static String password = System.getenv("DATABASE_PASS");
 
-    public void DBConnection() throws ClassNotFoundException, SQLException {
-        Class.forName("org.mariadb.jdbc.Driver");
-        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/db", "username", "password");
-    }
-
-    public static DBConnection getDBConnection() throws ClassNotFoundException, SQLException {
-        if (dBConnection == null) {
-            dBConnection = new DBConnection();
+    public static void main(String[] args) {
+        try {
+            Connection conn = DriverManager.getConnection(db_url, username, password);
+            Statement stmt = conn.createStatement();
+            stmt.executeQuery("CREATE DATABASE IF NOT EXISTS projects;");
+            stmt.executeQuery("USE projects;");
+            stmt.executeQuery("CREATE TABLE IF NOT EXISTS events;");
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        return dBConnection;
-    }
-
-    public Connection getConnection() {
-        return connection;
     }
 }
