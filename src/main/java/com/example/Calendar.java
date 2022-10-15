@@ -14,6 +14,12 @@ import java.sql.*;
 @Command(name = "calendar", mixinStandardHelpOptions = true, version = "calendar 1.0", description = "CLI events calendar")
 
 public class Calendar implements Runnable {
+    @Option(names = {"-a", "--add"}, description = "Add event")
+    boolean add;
+
+    @Option(names = {"-r", "--remove"}, description = "Remove event")
+    boolean remove;
+
     @Parameters(index = "0", paramLabel = "<date>", description = "Date of event to add")
     private String dateStr;
 
@@ -27,7 +33,6 @@ public class Calendar implements Runnable {
 
     }
     public static void main(String... args) {
-        System.out.println( "Hello World!" );
         int exitCode = new CommandLine(new Calendar()).execute(args);
         System.exit(exitCode);
     }
